@@ -219,13 +219,12 @@ public class MainActivity extends AppCompatActivity {
             }
 
             JobInfo.Builder builder = new JobInfo.Builder(kJobId++, mServiceComponent);
-            builder.setPeriodic(61000);
-            //builder.setPeriodic(600000);
+            builder.setPeriodic(600000);
             mBluBatteryJobService.scheduleJob(builder.build());
 
         }
 
-        public void cancelAllJobs(View v) {
+        public void cancelAllJobs() {
             JobScheduler tm =
                     (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
             tm.cancelAll();
@@ -234,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * UI onclick listener to call jobFinished() in our service.
          */
-        public void finishJob(View v) {
+        public void finishJob() {
             if (!ensureBluBatteryJobService()) {
                 return;
             }
@@ -262,7 +261,6 @@ public class MainActivity extends AppCompatActivity {
         public void onReceivedStopJob() {
 //        Message m = Message.obtain(mHandler, MSG_UNCOLOUR_STOP);
 //        mHandler.sendMessageDelayed(m, 2000L); // uncolour in 1 second.
-            stopTime();
         }
 
         private void startTime() {
@@ -283,7 +281,6 @@ public class MainActivity extends AppCompatActivity {
         private void stopTime() {
             mTime.cancel();
             mainBinding.timeView.setTextColor(Color.RED);
+            cancelAllJobs();
         }
-
-
 }
