@@ -165,6 +165,7 @@ public class BluBatteryJobService extends JobService {
                     e.printStackTrace();
                 }
             }
+            callJobFinished();
         }
     };
 
@@ -201,6 +202,7 @@ public class BluBatteryJobService extends JobService {
                     @Override
                     public void run() {
                         mUdooBluManager.disconnect(mBluAddress);
+                        callJobFinished();
                     }
                 }, 11000);
             }
