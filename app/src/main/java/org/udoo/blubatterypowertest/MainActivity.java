@@ -219,7 +219,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             JobInfo.Builder builder = new JobInfo.Builder(kJobId++, mServiceComponent);
-            builder.setPeriodic(600000);
+            builder.setPeriodic(61000);
+            //builder.setPeriodic(600000);
             mBluBatteryJobService.scheduleJob(builder.build());
 
         }

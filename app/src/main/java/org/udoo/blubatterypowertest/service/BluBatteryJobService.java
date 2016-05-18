@@ -141,6 +141,7 @@ public class BluBatteryJobService extends JobService {
             super.onScanResult(callbackType, result);
             BluetoothDevice device = result.getDevice();
             if (!mBluReached && device.getAddress().equals(mBluAddress)) {
+                Log.i(TAG, "ping: found");
                 mBluReached = true;
                 Message m = Message.obtain();
                 m.what = MainActivity.MSG_REACHED;
@@ -149,6 +150,7 @@ public class BluBatteryJobService extends JobService {
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+                mUdooBluManager.scanLeDevice(false, bluScanCallBack);
             }
         }
 
@@ -157,6 +159,7 @@ public class BluBatteryJobService extends JobService {
             super.onScanFinished();
 
             if (!mBluReached) {
+                Log.i(TAG, "ping: not found");
                 Message m = Message.obtain();
                 m.what = MainActivity.MSG_REACHED_FAILED;
                 try {
